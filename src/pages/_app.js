@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import '../styles/globals.css'
+import '../styles/css/imports.scss';
+
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -13,7 +15,7 @@ export default function MyApp({ Component, pageProps }) {
         />
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
-        <title>Next.js PWA Example</title>
+        <title>Soro Soke Radio</title>
 
         <link rel="manifest" href="/manifest.json" />
         <link
