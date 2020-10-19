@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import ReactHowler from 'react-howler'
+// import '../styles/css/imports.scss';
+// import ReactHowler from 'react-howler'
 
 import MainButtons from '../components/MainButtons';
 import Notification from '../components/Notification';
-import StationsWrapper from '../components/StationsWrapper';
+// import StationsWrapper from '../components/StationsWrapper';
 import VolumeSlider from '../components/VolumeSlider';
-import Cassette from '../components/Cassette';
+// import Cassette from '../components/Cassette';
 
 import StationManager from '../services/StationManager';
 
@@ -56,7 +55,6 @@ export default class Radio extends Component {
 
   render() {
     const { currentStation, isPlaying, isLoading, volume } = this.state;
-    console.log(currentStation, isPlaying, isLoading)
     return (
       <div className="App">
 
@@ -66,28 +64,23 @@ export default class Radio extends Component {
 
         {/*   
           
+          <StationsWrapper
+            onPlay={this.play}
+            onStop={this.stop}
+            isPlaying={isPlaying}
+            isLoading={isLoading}
+            currentStation={currentStation}
+          />
+          <ReactHowler
+            src='https://s4.radio.co/s99d55c85b/listen'
+            playing={true}
+            ref={(ref) => (this.player = ref)}
+          />
           
           <Cassette nowPlaying={currentStation} isPlaying={isPlaying} />
         */}
-        <StationsWrapper
-          onPlay={this.play}
-          onStop={this.stop}
-          isPlaying={isPlaying}
-          isLoading={isLoading}
-          currentStation={currentStation}
-        />
 
-        <AudioPlayer
-          autoPlay
-          src="https://s4.radio.co/s99d55c85b/listen"
-          onPlay={e => console.log("onPlay")}
-        // other props here
-        />
-        <ReactHowler
-          src='https://s4.radio.co/s99d55c85b/listen'
-          playing={true}
-          ref={(ref) => (this.player = ref)}
-        />
+
 
         <MainButtons
           onPlay={this.continue}

@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import '../styles/css/imports.scss';
-// import '../styles/globals.css'
+import '../styles/globals.css'
 
 
 export default function MyApp({ Component, pageProps }) {
@@ -13,6 +12,7 @@ export default function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
         />
+        <link rel="stylesheet" href="/plyr.css" />
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
         <title>Soro Soke Radio</title>

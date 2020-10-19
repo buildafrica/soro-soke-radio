@@ -2,7 +2,7 @@
 	"name": "Soro Soke Online Radio",
 	"short_name": "#SoroSoke Radio",
 	"theme_color": "#ffffff",
-	"background_color": "#004740",
+	"background_color": "#fadc58",
 	"display": "fullscreen",
 	"orientation": "portrait",
 	"scope": "/",
