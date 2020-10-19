@@ -13,7 +13,7 @@ export default class StationManager {
           src,
           format: ['mp3', 'aac'],
           html5: true,
-          preload: false,
+          preload: true,
           onload,
         }));
     });

@@ -1,59 +1,99 @@
-import styles from '../styles/Home.module.css'
+import React, { Component } from 'react';
+// import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+import MainButtons from '../components/MainButtons';
+import Notification from '../components/Notification';
+// import StationsWrapper from '../components/StationsWrapper';
+import VolumeSlider from '../components/VolumeSlider';
+import Cassette from '../components/Cassette';
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+import StationManager from '../services/StationManager';
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+export default class Radio extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentStation: "soro-soke-live",
+      isPlaying: false,
+      isLoading: false,
+      volume: 0.5,
+    };
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+    this.stationManager = new StationManager(() => {
+      this.setState({ isLoading: false, isPlaying: true });
+    });
+    this.stationManager.volume = 0.5;
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+    this.play = this.play.bind(this);
+    this.continue = this.continue.bind(this);
+    this.stop = this.stop.bind(this);
+  }
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+  onVolumeChange(volume) {
+    this.setState({ volume });
+    this.stationManager.volumeValue = volume;
+  }
+
+  play(station = "soro-soke-live") {
+    this.setState({ isLoading: true, isPlaying: false, currentStation: station });
+    this.stop();
+    this.stationManager.play(station);
+  }
+
+  continue() {
+    const { currentStation } = this.state;
+    this.setState({ isLoading: true, isPlaying: false });
+    this.stationManager.play(currentStation);
+  }
+
+  stop() {
+    this.setState({ isPlaying: false });
+    this.stationManager.stop();
+  }
+
+  render() {
+    const { currentStation, isPlaying, isLoading, volume } = this.state;
+    console.log(currentStation, isPlaying, isLoading)
+    return (
+      <div className="App">
+
+
+        <Notification isLoading={isLoading} />
+
+
+        {/*   
+          
+          <AudioPlayer
+            autoPlay
+            src="https://s4.radio.co/s99d55c85b/listen"
+            onPlay={e => console.log("onPlay")}
+          // other props here
+          />
+          <StationsWrapper
+            onPlay={this.play}
+            onStop={this.stop}
+            isPlaying={isPlaying}
+            isLoading={isLoading}
+            currentStation={currentStation}
+          />
+          
+        */}
+
+        <MainButtons
+          onPlay={this.continue}
+          onStop={this.stop}
+          isPlaying={isPlaying}
+          isLoading={isLoading}
+          currentStation={currentStation}
+        />
+        <VolumeSlider
+          currentVolume={volume}
+          setVolume={(volumeValue) => { this.onVolumeChange(volumeValue); }}
+        />
+        <Cassette nowPlaying={currentStation} isPlaying={isPlaying} />
+      </div>
+    );
+  }
 }

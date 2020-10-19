@@ -2,7 +2,7 @@ import React from 'react';
 
 const musicBars = ({ isPlaying }) => (
   <div className="music-bars" style={{ display: isPlaying ? 'flex' : 'none' }}>
-    {Array(Math.round(window.innerWidth / 210))
+    {Array(Math.round(800 / 210))
       .fill(0)
       .map(() => (
         <>
